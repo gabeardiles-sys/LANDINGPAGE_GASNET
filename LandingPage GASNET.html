@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GASNET Portal Login</title>
+  <!-- Tailwind CSS CDN Loaded First -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script>
+    window.tailwind = window.tailwind || {};
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gasnet: {
+              blue: '#005DAA',
+              darkblue: '#003B70',
+              deepnavy: '#001E3D',
+              lime: '#8CC63F',
+              cyan: '#00A8FF'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Montserrat', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Background Gradient Harmonized Palette */
+    .gasnet-harmonized-bg {
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(0, 168, 255, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(140, 198, 63, 0.3) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(0, 93, 170, 0.5) 0%, transparent 60%),
+        linear-gradient(135deg, #001024 0%, #001E3D 40%, #003B70 75%, #00152D 100%);
+    }
+
+    .grid-bg {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    }
+
+    /* Ambient Pulsing Glow */
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.08); opacity: 0.85; }
+    }
+    .animate-pulse-glow {
+      animation: pulseGlow 6s ease-in-out infinite;
+    }
+
+    @keyframes radarSweep {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .radar-sweep {
+      animation: radarSweep 10s linear infinite;
+      transform-origin: center center;
+    }
+  </style>
+</head>
+<body class="gasnet-harmonized-bg text-white min-h-screen font-sans flex flex-col justify-between relative overflow-x-hidden grid-bg">
+
+  <!-- Watermark Logo GASNET di Background Utama -->
+  <div class="fixed inset-0 pointer-events-none flex items-center justify-center opacity-[0.05] z-0 overflow-hidden">
+    <svg viewBox="0 0 450 140" class="w-[90vw] max-w-[1100px] h-auto">
+      <text x="5" y="95" font-family="'Montserrat', sans-serif" font-weight="900" font-size="110" fill="#FFFFFF" letter-spacing="-4">gas<tspan fill="#8CC63F">net</tspan></text>
+    </svg>
+  </div>
+
+  <!-- Dynamic Colored Ambient Lights (Harmonisasi Cyan & Lime) -->
+  <div class="absolute top-[-90px] left-[-70px] w-[520px] h-[520px] bg-gasnet-cyan/30 rounded-full blur-[130px] pointer-events-none animate-pulse-glow"></div>
+  <div class="absolute bottom-[-90px] right-[-70px] w-[520px] h-[520px] bg-gasnet-lime/25 rounded-full blur-[130px] pointer-events-none animate-pulse-glow"></div>
+
+  <!-- MAIN CONTAINER CARD -->
+  <main id="loginPage" class="relative z-10 flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 my-auto">
+    <div class="w-full max-w-4xl bg-gradient-to-br from-white via-blue-50/30 to-white backdrop-blur-xl rounded-3xl p-6 sm:p-10 shadow-[0_25px_65px_rgba(0,0,0,0.5)] border border-white/80 relative text-gray-800 transition-all duration-300">
+      
+      <!-- LOGO GASNET BESAR DI BAGIAN ATAS (CENTERED) -->
+      <div class="flex flex-col items-center justify-center mb-8 sm:mb-10">
+        <div class="w-60 sm:w-72 h-auto transition-transform hover:scale-105 duration-300">
+          <svg viewBox="0 0 350 110" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto drop-shadow-sm">
+            <style>
+              .gas-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 78px; fill: #005DAA; letter-spacing: -3px; }
+              .net-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 78px; fill: #8CC63F; letter-spacing: -3px; }
+              .tagline { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 15px; fill: #005DAA; letter-spacing: 0.2px; }
+            </style>
+            <!-- Text gasnet menyambung rapat -->
+            <text x="175" y="72" text-anchor="middle">
+              <tspan class="gas-text">gas</tspan><tspan class="net-text">net</tspan>
+            </text>
+            <!-- Tagline -->
+            <text x="175" y="96" text-anchor="middle" class="tagline">simplify your internet things</text>
+          </svg>
+        </div>
+        <div class="h-1.5 w-24 bg-gradient-to-r from-gasnet-blue via-gasnet-cyan to-gasnet-lime rounded-full mt-2 shadow-sm"></div>
+      </div>
+
+      <!-- GRID LAYOUT SEJAJAR: KIRI (COVERAGE AREA KECIL) & KANAN (FORM LOGIN) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        
+        <!-- SISI KIRI: Visual Coverage Area Ringkas (Warna Vibrant & Glowing Nodes) -->
+        <div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#001E3D] via-[#003B70] to-[#00122A] rounded-2xl p-6 relative overflow-hidden border border-gasnet-cyan/40 shadow-[0_12px_35px_rgba(0,93,170,0.35)] h-full min-h-[290px] group">
+          
+          <!-- Glowing Ambient Accents Inside Card -->
+          <div class="absolute -top-12 -left-12 w-36 h-36 bg-gasnet-cyan/40 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-700"></div>
+          <div class="absolute -bottom-12 -right-12 w-36 h-36 bg-gasnet-lime/35 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-700"></div>
+
+          <!-- Radar Overlay Visual -->
+          <div class="absolute inset-0 flex items-center justify-center opacity-45 pointer-events-none">
+            <svg class="w-full h-full max-w-[260px] max-h-[260px]" viewBox="0 0 300 300">
+              <circle cx="150" cy="150" r="130" stroke="rgba(0,168,255,0.3)" stroke-width="1" fill="none" stroke-dasharray="4 4" />
+              <circle cx="150" cy="150" r="80" stroke="rgba(140,198,63,0.35)" stroke-width="1" fill="none" />
+              <g class="radar-sweep">
+                <path d="M150 150 L280 150 A130 130 0 0 0 150 20 Z" fill="url(#radarGrad)" opacity="0.65"/>
+              </g>
+              <defs>
+                <radialGradient id="radarGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#8CC63F" stop-opacity="0.85"/>
+                  <stop offset="100%" stop-color="#00A8FF" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <!-- Map SVG Visual dengan Glow & Warna Terang -->
+          <div class="relative z-10 w-full max-w-[320px] py-2">
+            <svg class="w-full h-auto drop-shadow-[0_4px_12px_rgba(0,168,255,0.5)]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Island Silhouettes -->
+              <path d="M50 110 L100 60 L140 90 L90 140 Z" fill="#00A8FF" fill-opacity="0.25" stroke="#00A8FF" stroke-width="1.5" stroke-dasharray="3 3"/>
+              <path d="M140 160 L230 160 L240 175 L150 175 Z" fill="#00A8FF" fill-opacity="0.25" stroke="#00A8FF" stroke-width="1.5" stroke-dasharray="3 3"/>
+              <path d="M200 70 L270 60 L280 120 L210 110 Z" fill="#00A8FF" fill-opacity="0.25" stroke="#00A8FF" stroke-width="1.5" stroke-dasharray="3 3"/>
+              <path d="M300 75 L340 75 L320 100 L350 100 L330 135 L305 110 Z" fill="#00A8FF" fill-opacity="0.25" stroke="#00A8FF" stroke-width="1.5" stroke-dasharray="3 3"/>
+              <path d="M460 100 L530 85 L550 130 L480 140 Z" fill="#00A8FF" fill-opacity="0.25" stroke="#00A8FF" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+              <!-- Network Lines dengan Gradien Terang -->
+              <path d="M80 90 Q150 110 180 165" stroke="#8CC63F" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M180 165 Q230 100 240 90" stroke="#00A8FF" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M240 90 Q310 80 320 105" stroke="#8CC63F" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M320 105 Q400 120 490 110" stroke="#00A8FF" stroke-width="2.5" stroke-linecap="round"/>
+
+              <!-- Active Glowing Nodes -->
+              <circle cx="80" cy="90" r="6" fill="#8CC63F" class="animate-ping" opacity="0.8"/>
+              <circle cx="80" cy="90" r="5" fill="#8CC63F"/>
+              <circle cx="180" cy="165" r="8" fill="#00A8FF" class="animate-ping" opacity="0.8"/>
+              <circle cx="180" cy="165" r="6.5" fill="#00A8FF"/>
+              <circle cx="240" cy="90" r="5.5" fill="#8CC63F"/>
+              <circle cx="320" cy="105" r="5.5" fill="#00A8FF"/>
+              <circle cx="490" cy="110" r="6" fill="#8CC63F"/>
+            </svg>
+          </div>
+
+          <!-- Status Indicator Badge (Vibrant Glassmorphism) -->
+          <div class="relative z-10 mt-3 flex items-center space-x-2.5 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-gasnet-lime/50 shadow-[0_0_18px_rgba(140,198,63,0.3)]">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gasnet-lime opacity-85"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-gasnet-lime shadow-[0_0_8px_#8CC63F]"></span>
+            </span>
+            <span class="text-[11px] font-bold tracking-wider text-white uppercase">Fiber Network Active</span>
+          </div>
+
+        </div>
+
+        <!-- SISI KANAN: Form Login Nama, Email, dan Perusahaan -->
+        <div class="flex flex-col justify-center">
+          <form novalidate onsubmit="handleLogin(event)" class="space-y-4">
+            <!-- Input Nama -->
+            <div>
+              <label for="Nama" class="block text-xs font-bold text-gasnet-blue uppercase tracking-wider mb-1.5 flex items-center justify-between">
+                <span>Nama</span>
+                <span class="h-1.5 w-1.5 rounded-full bg-gasnet-lime"></span>
+              </label>
+              <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gasnet-blue group-focus-within:text-gasnet-lime transition-colors">
+                  <i class="fa-solid fa-user text-sm"></i>
+                </div>
+                <input
+                  type="text"
+                  id="Nama"
+                  required
+                  placeholder=""
+                  class="w-full pl-10 pr-4 py-3 bg-sky-50/70 border border-sky-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gasnet-blue focus:border-gasnet-blue focus:bg-white transition-all text-sm font-medium shadow-sm"
+                >
+              </div>
+            </div>
+
+            <!-- Input Email -->
+            <div>
+              <label for="email" class="block text-xs font-bold text-gasnet-blue uppercase tracking-wider mb-1.5 flex items-center justify-between">
+                <span>Email</span>
+                <span class="h-1.5 w-1.5 rounded-full bg-gasnet-blue"></span>
+              </label>
+              <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gasnet-blue group-focus-within:text-gasnet-lime transition-colors">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  placeholder="Masukkan email"
+                  class="w-full pl-10 pr-10 py-3 bg-sky-50/70 border border-sky-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gasnet-blue focus:border-gasnet-blue focus:bg-white transition-all text-sm font-medium shadow-sm"
+                >
+              </div>
+            </div>
+
+            <!-- Input Perusahaan -->
+            <div>
+              <label for="perusahaan" class="block text-xs font-bold text-gasnet-blue uppercase tracking-wider mb-1.5 flex items-center justify-between">
+                <span>Perusahaan</span>
+                <span class="h-1.5 w-1.5 rounded-full bg-gasnet-blue"></span>
+              </label>
+              <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gasnet-blue group-focus-within:text-gasnet-lime transition-colors">
+                  <i class="fa-solid fa-building text-sm"></i>
+                </div>
+                <input
+                  type="text"
+                  id="perusahaan"
+                  required
+                  placeholder="Masukkan Perusahaan"
+                  class="w-full pl-10 pr-10 py-3 bg-sky-50/70 border border-sky-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gasnet-blue focus:border-gasnet-blue focus:bg-white transition-all text-sm font-medium shadow-sm"
+                >
+              </div>
+            </div>
+
+            <!-- Jarak 20px antara kolom Perusahaan dan tombol LOGIN -->
+            <div class="login-button-wrap">
+              <button
+                type="submit"
+                class="w-full py-2.5 px-6 bg-gradient-to-r from-gasnet-blue via-[#004B87] to-gasnet-darkblue hover:from-gasnet-darkblue hover:to-gasnet-lime text-white font-extrabold rounded-xl shadow-[0_8px_25px_rgba(0,93,170,0.4)] hover:shadow-[0_10px_30px_rgba(140,198,63,0.45)] transition-all duration-300 flex items-center justify-center space-x-1.5 text-sm uppercase tracking-wider group"
+              >
+                <span>LOGIN</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    /* Jarak tambahan khusus di atas tombol LOGIN */
+    .login-button-wrap {
+      margin-top: 20px !important;
+    }
+  </style>
+
+
+  <!-- HALAMAN KEDUA: MENU UTAMA GASNET -->
+  <main id="dashboardPage" class="hidden relative z-10 flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <section class="bg-white/95 text-gray-800 rounded-3xl shadow-2xl border border-white/70 p-5 sm:p-8">
+      <div class="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#001a35] via-[#004b87] to-[#0879c9] px-5 py-8 sm:px-10 sm:py-10 text-center shadow-[0_18px_45px_rgba(0,55,105,0.22)]">
+        <div class="absolute -left-16 -top-20 h-64 w-64 rounded-full bg-cyan-300/20 blur-3xl"></div>
+        <div class="absolute -right-16 -bottom-24 h-72 w-72 rounded-full bg-lime-300/20 blur-3xl"></div>
+        <div class="absolute inset-0 opacity-[0.10]" style="background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px);background-size:34px 34px"></div>
+        <div class="relative z-10 mx-auto max-w-3xl">
+          <div class="mx-auto w-full max-w-[340px] sm:max-w-[440px] drop-shadow-[0_8px_22px_rgba(0,0,0,0.22)]">
+            <svg viewBox="0 0 520 150" class="h-auto w-full" role="img" aria-label="GASNET - simplify your internet things">
+              <text x="260" y="98" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="112" font-weight="900" letter-spacing="-7" fill="#ffffff">gas<tspan fill="#a8e05b">net</tspan></text>
+              <text x="260" y="132" text-anchor="middle" font-family="Inter, sans-serif" font-size="17" font-weight="600" letter-spacing="2.2" fill="#d8efff">SIMPLIFY YOUR INTERNET THINGS</text>
+            </svg>
+          </div>
+          <div class="mx-auto mt-4 h-1.5 w-28 rounded-full bg-gradient-to-r from-cyan-300 via-white to-lime-300"></div>
+          <p class="mt-4 text-sm sm:text-base font-medium text-blue-100">Portal Produk, Konektivitas &amp; Layanan Digital</p>
+          <div class="mt-5 flex flex-col items-center gap-1 text-xs sm:text-sm text-blue-100/90">
+            <p>Selamat datang, <strong id="welcomeName" class="text-white">Pengguna</strong></p>
+            <p id="welcomeCompany" class="text-blue-100/80"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-end">
+        <a id="speedTestLink" href="https://gasnet.id/main/speedtest"
+           class="group inline-flex items-center gap-3 rounded-full border border-lime-200 bg-gradient-to-r from-lime-50 to-white px-3 py-2 pr-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-lime-300 hover:shadow-lg hover:shadow-lime-900/10">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#9bcf42] to-[#5b941b] text-white shadow-sm">
+            <i class="fa-solid fa-gauge-high text-sm"></i>
+          </span>
+          <span class="text-left leading-tight">
+            <span class="block text-[10px] font-extrabold uppercase tracking-[0.16em] text-lime-700">Quick Access</span>
+            <span class="block text-sm font-extrabold text-slate-800">Speed Test</span>
+          </span>
+          <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs text-lime-700 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+        </a>
+      </div>
+
+      <div class="mt-7 sm:mt-8">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+          <div>
+            <p class="text-xs font-extrabold uppercase tracking-[0.22em] text-gasnet-lime">GASNET Digital Services</p>
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mt-2">Jelajahi Produk &amp; Layanan</h1>
+            <p class="text-slate-500 mt-2 max-w-2xl">Semua kebutuhan konektivitas dan layanan digital Anda, dalam satu portal yang mudah diakses.</p>
+          </div>
+          <span class="inline-flex items-center gap-2 self-start sm:self-auto rounded-full bg-emerald-50 border border-emerald-100 px-3 py-1.5 text-xs font-bold text-emerald-700">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Layanan siap diakses
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 mt-7">
+        <!-- KARTU PRODUK & LAYANAN -->
+        <a id="productLink" href="https://gasnet.id" target="_blank" rel="noopener noreferrer"
+           class="group relative isolate min-h-[230px] overflow-hidden rounded-3xl border border-sky-100 bg-gradient-to-br from-[#f7fbff] via-white to-[#eaf5ff] p-6 sm:p-8 shadow-[0_12px_35px_rgba(0,62,115,0.08)] hover:-translate-y-1.5 hover:shadow-[0_22px_45px_rgba(0,93,170,0.16)] transition-all duration-300">
+          <div class="absolute -right-12 -top-14 h-48 w-48 rounded-full bg-sky-200/50 blur-3xl transition-transform duration-500 group-hover:scale-125"></div>
+          <div class="absolute right-7 top-7 text-[100px] leading-none text-sky-100/70 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+            <i class="fa-solid fa-wifi"></i>
+          </div>
+          <div class="relative z-10 flex h-full flex-col items-start">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0879c9] to-[#003b70] text-2xl text-white shadow-lg shadow-blue-900/20 ring-4 ring-white">
+              <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <span class="mt-6 text-[11px] font-extrabold uppercase tracking-[0.2em] text-sky-700">Explore GASNET</span>
+            <h2 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Produk &amp; Layanan GASNET</h2>
+            <p class="mt-2 max-w-xl text-sm leading-6 text-slate-600">Temukan solusi internet, konektivitas, dan layanan digital dari GASNET untuk kebutuhan rumah, bisnis, maupun organisasi Anda.</p>
+            <span class="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#005DAA] px-5 py-3 text-sm font-bold text-white shadow-md shadow-blue-900/15 transition-all group-hover:gap-3 group-hover:bg-[#003B70]">
+              Lihat Produk <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </div>
+        </a>
+
+      </div>
+
+   <!-- BANNER PROMO GASNET -->
+<section class="mt-8 w-full">
+
+  <div class="mb-4">
+    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">
+      Promo GASNET
+    </h2>
+    <p class="text-sm text-slate-500 mt-1">
+      Nikmati koneksi internet cepat dan stabil bersama GASNET.
+    </p>
+  </div>
+
+  <a
+    href="https://wa.me/6281234567890?text=Halo%20Gasnet%20Saya%20Mau%20Promo"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="block w-full overflow-hidden rounded-2xl shadow-xl
+           transition-all duration-300 hover:shadow-2xl
+           hover:-translate-y-1"
+  >
+
+    <img
+      src="assets/images/banner1.png"
+      alt="Promo Internet GASNET"
+      class="block w-full h-auto object-cover
+             hover:opacity-95 transition duration-300"
+      loading="lazy"
+    />
+
+  </a>
+
+  <p class="text-xs text-slate-400 mt-2 text-center">
+    Klik banner untuk mendapatkan informasi promo GASNET melalui WhatsApp.
+  </p>
+
+</section>
+  </main>
+
+  <script>
+    /*
+      KONFIGURASI INTEGRASI SERVER GASNET
+      Tolong disesuaikan URL API sesuai alamat backend yang disediakan.
+      End point tidak aktif sebelum backend dibuat.
+    */
+    const GASNET_PRODUCT_URL = "https://gasnet.id";
+
+    // Halaman Speed Test GASNET
+    const SPEEDTEST_URL = "https://gasnet.id/main/speedtest";
+
+    const API_BASE_URL = ""; // Contoh: "https://portal.gasnet.id"
+    const LOGIN_API = "/api/portal/login";
+
+    document.getElementById("productLink").href = GASNET_PRODUCT_URL;
+
+    async function handleLogin(event) {
+      event.preventDefault();
+
+      const nama = document.getElementById("Nama").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const perusahaan = document.getElementById("perusahaan").value.trim();
+
+      if (!nama || !email || !perusahaan) {
+        alert("Mohon lengkapi Nama, Email, dan Perusahaan.");
+        return;
+      }
+
+      const loginButton = event.submitter || document.querySelector('#loginPage button[type="submit"]');
+      const originalButtonText = loginButton ? loginButton.innerHTML : "";
+      if (loginButton) {
+        loginButton.disabled = true;
+        loginButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>MEMPROSES...</span>';
+      }
+
+      try {
+        // Jika API_BASE_URL belum diisi, mode pratinjau lokal digunakan.
+        // Untuk produksi, isi API_BASE_URL dan aktifkan endpoint login di backend.
+        if (API_BASE_URL) {
+          const response = await fetch(API_BASE_URL + LOGIN_API, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nama, email, perusahaan }),
+            credentials: "include"
+          });
+
+          if (!response.ok) {
+            const result = await response.json().catch(() => ({}));
+            throw new Error(result.message || "Data tidak dapat diverifikasi oleh server.");
+          }
+        }
+
+        document.getElementById("welcomeName").textContent = nama;
+        document.getElementById("welcomeCompany").textContent = perusahaan;
+        document.getElementById("loginPage").classList.add("hidden");
+        document.getElementById("dashboardPage").classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (error) {
+        alert("Login gagal: " + error.message);
+      } finally {
+        if (loginButton) {
+          loginButton.disabled = false;
+          loginButton.innerHTML = originalButtonText;
+        }
+      }
+    }
+
+    // Link Speed Test menggunakan navigasi langsung pada tab yang sama.
+    document.getElementById("speedTestLink").href = SPEEDTEST_URL;
+
+    function logoutToLogin() {
+      document.getElementById("dashboardPage").classList.add("hidden");
+      document.getElementById("loginPage").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+  </script>
+
+</body>
+</html>
